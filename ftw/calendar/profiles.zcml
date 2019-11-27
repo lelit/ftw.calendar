@@ -14,15 +14,6 @@
       />
 
   <genericsetup:registerProfile
-      zcml:condition="not-have plone-5"
-      name="default"
-      title="4teamwork Calendar Plone4 profile"
-      directory="profiles/plone4"
-      description="Installs the ftw.calendar add-on Plone4 specific configuration"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
-
-  <genericsetup:registerProfile
       zcml:condition="have plone-5"
       name="default"
       title="4teamwork Calendar Plone5 profile"

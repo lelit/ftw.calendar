@@ -14,7 +14,6 @@
  * Date: Sat Jan 1 23:46:27 2011 -0800
  *
  */
- console.log('foo');
 (function($, undefined) {
 
 

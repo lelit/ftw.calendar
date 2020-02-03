@@ -75,10 +75,11 @@ class CalendarJSONSource(object):
         # the times to 00:00 and 23:59. If those times are on the same
         # date they will not be recognised as all day because thats only a
         # 0.999.. day. This check will mark those events as all day.
-        duration = brain.end - brain.start
-        if isinstance(duration, timedelta):
-            duration = duration.seconds / 60. / 60.
-        allday = duration > 0.99
+        # duration = brain.end - brain.start
+        # if isinstance(duration, timedelta):
+        #     duration = duration.seconds / 60. / 60.
+        # allday = duration > 0.99
+
 
         return {"id": "UID_%s" % (brain.UID),
                 "title": title,
@@ -86,7 +87,9 @@ class CalendarJSONSource(object):
                 "end": end,
                 "url": brain.getURL(),
                 "editable": editable,
-                "allDay": allday,
+                #"allDay": allday,
+                # Use Plone 5 field for allDay instead
+                "allDay": event.whole_day,
                 "className": "state-" + str(brain.review_state)
                 + (editable and " editable" or ""),
                 "description": description}

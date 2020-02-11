@@ -47,37 +47,39 @@ $(document).ready(function() {
     		'<tal:trans i18n:translate="day_short_6">Fri</tal:trans>',
     		'<tal:trans i18n:translate="day_short_7">Sat</tal:trans>'],
 		buttonText: {
-        	prev: '&nbsp;&#9668;&nbsp;',
-        	next: '&nbsp;&#9658;&nbsp;',
-        	prevYear: '&nbsp;&lt;&lt;&nbsp;',
-        	nextYear: '&nbsp;&gt;&gt;&nbsp;',
         	today: '<tal:trans i18n:translate="button_today">today</tal:trans>',
         	month: '<tal:trans i18n:translate="button_month">month</tal:trans>',
         	week: '<tal:trans i18n:translate="button_week">week</tal:trans>',
         	day: '<tal:trans i18n:translate="button_day">day</tal:trans>'
         },
-		titleFormat: {
-            month: '<tal:trans i18n:translate="title_month">MMMM yyyy</tal:trans>',
-            week: '<tal:trans i18n:translate="title_week">MMM d[ yyyy]{ - [ MMM] d yyyy}</tal:trans>',
-            day: '<tal:trans i18n:translate="title_day">dddd, MMM d, yyyy</tal:trans>'
-        },
-        columnFormat: {
-            month: '<tal:trans i18n:translate="column_month">ddd</tal:trans>',
-            week: '<tal:trans i18n:translate="column_week">ddd M/d</tal:trans>',
-            day: '' // Don't render the column heading in the day view because the date is already displayed in the title.
+        views: {
+            month: {
+                titleFormat: '<tal:trans i18n:translate="title_month">MMMM YYYY</tal:trans>',
+                columnFormat: '<tal:trans i18n:translate="column_month">ddd</tal:trans>',
+            },
+            week: {
+                titleFormat: '<tal:trans i18n:translate="title_week">MMM D, YYYY</tal:trans>',
+                titleRangeSeparator: '<tal:trans i18n:translate="title_range_separator"> - </tal:trans>',
+                columnFormat: '<tal:trans i18n:translate="column_week">ddd M/D</tal:trans>',
+            },
+            day: {
+                titleFormat: '<tal:trans i18n:translate="title_day">dddd, MMM D, YYYY</tal:trans>',
+                columnFormat: '', // Don't render the column heading in the day view because the date is already displayed in the title.
+            },
         },
 		editable: true,
-		startParam: "start:int",
-		endParam: "end:int",
+		startParam: "start",
+		endParam: "end",
         events: ($('base').attr('href') || $('body').data('base-url')) + "/ftwcalendar_update",
-    	axisFormat: '<tal:trans i18n:translate="axis_format">h:mm tt</tal:trans>',
+    	axisFormat: '<tal:trans i18n:translate="axis_format">h:mm a</tal:trans>',
         allDaySlot: true,
         allDayText: '<tal:trans i18n:translate="all_day">All day</tal:trans>',
         firstDay: <span tal:replace="view/first_day">0</span>,
-        weekMode: "liquid",
-        timeFormat: '<tal:trans i18n:translate="time_format">h:mm tt</tal:trans>',
+        height: "auto",
+        fixedWeekCount: false,
+        timeFormat: '<tal:trans i18n:translate="time_format">h:mm a</tal:trans>',
         eventRender: function(event, element) {
-            element.find("a").attr('title', event.description);
+            element.attr('title', event.description);
         },
         <span tal:omit-tag="" tal:condition="view/can_add_content">
         dayClick: function(date, allDay, jsEvent, view) {
